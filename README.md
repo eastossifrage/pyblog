@@ -134,6 +134,14 @@ sudo ln -s /var/www/pyblog/pyblog_uwsgi.ini /etc/uwsgi/vassals
 
 现在，flask应用就应该配置完成了。
 
+### 配置flask应用数据库
+
+```bash
+(flask)$ python manage.py db init
+(flask)$ python manage.py db migrate -m "initial migration"
+(flask)$ python manage.py db upgrade
+```
+
 ### 重新启动服务
 
 ```bash
