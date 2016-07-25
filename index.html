@@ -150,8 +150,8 @@ logto = /var/log/uwsgi/%n.log
 
 <p>我们的工作现在基本完成了，唯一剩下的事情是配置uWSGI在后台运行，这是uWSGI Emperor的职责。</p>
 
-<h3>
-<a id="uwsgi-emperor" class="anchor" href="#uwsgi-emperor" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>uWSGI Emperor</h3>
+<h4>
+<a id="uwsgi-emperor" class="anchor" href="#uwsgi-emperor" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>uWSGI Emperor</h4>
 
 <p>创建一个初始配置来运行emperor - <code>sudo vi /etc/init/uwsgi.conf</code>：</p>
 
@@ -170,7 +170,15 @@ env LOGTO=/var/log/uwsgi/emperor.log
 <div class="highlight highlight-source-shell"><pre>sudo mkdir /etc/uwsgi <span class="pl-k">&amp;&amp;</span> sudo mkdir /etc/uwsgi/vassals
 sudo ln -s /var/www/pyblog/pyblog_uwsgi.ini /etc/uwsgi/vassals</pre></div>
 
-<p>现在，flask应用就应该配置完成了。你可以查看<code>/var/log/uwsgi/</code>文件夹下的access.log和error.log内容，并根据提示来判断程序是否正常运行。</p>
+<p>现在，flask应用就应该配置完成了。</p>
+
+<h3>
+<a id="重新启动服务" class="anchor" href="#%E9%87%8D%E6%96%B0%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>重新启动服务</h3>
+
+<div class="highlight highlight-source-shell"><pre>sudo service nginx restart
+sudo service uwsgi restart</pre></div>
+
+<p>你可以查看<code>/var/log/uwsgi/</code>文件夹下的access.log和error.log内容，并根据提示来判断程序是否正常运行。</p>
       </section>
     </div>
 
