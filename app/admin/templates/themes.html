@@ -1,0 +1,74 @@
+{% extends 'common/base.html' %}
+{% block content %}
+<div class="admin-content">
+    <div class="row">
+        <div class="col-xs-12 col-sm-6">
+            <div class="theme-upload">
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">上传主题</span>
+                    <input type="text" class="form-control" placeholder="选择主题压缩包" aria-describedby="basic-addon1">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button">上传</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6">
+            <div class="theme-shop">
+                <div class="input-group">
+                    <a class="btn btn-primary" href="#" role="button"> 主题商场 >>></a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+                <img src="{{ url_for('admin.static', filename='images/favicon.png')}}" alt="藕丝空间">
+                <div class="caption">
+                    <h3>Thumbnail label</h3>
+                    <p><a href="#" class="btn btn-warning" role="button">选择</a> </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+                <img src="{{ url_for('admin.static', filename='images/favicon.png')}}" alt="藕丝空间">
+                <div class="caption">
+                    <h3>Thumbnail label</h3>
+                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                    <p><a href="#" class="btn btn-primary" role="button">Button</a> </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-8">
+            <div class="thumbnail">
+                <img src="{{ url_for('admin.static', filename='images/favicon.png')}}" alt="藕丝空间">
+                <div class="caption">
+                    <h3>Thumbnail label</h3>
+                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. ultricies vehicula ut id elit.</p>
+                    <p><a href="#" class="btn btn-primary" role="button">Button</a> </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+                <img src="{{ url_for('admin.static', filename='images/favicon.png')}}" alt="藕丝空间">
+                <div class="caption">
+                    <h3>Thumbnail label</h3>
+                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                    <p><a href="#" class="btn btn-primary" role="button">Button</a> </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+                <img src="{{ url_for('admin.static', filename='images/favicon.png')}}" alt="藕丝空间">
+                <div class="caption">
+                    <h3>Thumbnail label</h3>
+                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                    <p><a href="#" class="btn btn-primary" role="button">Button</a> </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'default/common/base.html' %}
+{% import "default/macros/_patination.html" as page_macros %}
+{% block content %}
+    {% for article in articles.items %}
+    <div class="col-xs-12 col-lg-11">
+        <h1><a href="{{ url_for('main.article', pid=article.id) }}">{{ article.title|title }}</a></h1>
+        <div class="entry-meta small">
+            <i class="glyphicon glyphicon-calendar"></i> <a>{{ moment(article.timestamp).format('LL') }}</a>
+            <i class="glyphicon glyphicon-user"></i> <a>{{ article.author.username }}</a>
+        </div>
+        <div>
+            {{ article.body|markdown|striptags|truncate(length=200, killwords=False, end="......") }}
+        </div>
+        <div class="gly-book">
+            <i class="glyphicon glyphicon-book"></i><a href="{{ url_for('main.category', c=article.category_name) }}"> {{ article.category_name }}</a>
+        </div>
+        <div class="gly-tags">
+            <i class="glyphicon glyphicon-tags"></i>
+            {% for tagged in article.taggeds %}
+                <a href="{{ url_for('main.tag', t=tagged.name) }}"> {{ tagged.name }} </a>
+            {% endfor %}
+        </div>
+        <a class="pull-right" href="{{ url_for('main.article', pid=article.id) }}">阅读全文 >></a>
+    </div>
+    {% endfor %}
+
+    {{ page_macros.pagination_widget(articles, endpoint='.tag', t=tag.name) }}
+
+{% endblock %}

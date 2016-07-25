@@ -1,0 +1,57 @@
+/*
+ * Style tweaks
+ * --------------------------------------------------
+ */
+html,
+body {
+  height: 100%;
+  overflow-x: hidden; /* Prevent scroll on narrow devices */
+}
+body {
+  font: 16px "Helvetica Neue",Helvetica,Arial,"Hiragino Sans GB","Hiragino Sans GB W3","Microsoft YaHei UI","Microsoft YaHei","WenQuanYi Micro Hei","sans-serif";
+}
+
+.login {
+  padding: 0 10px 10px 0;
+}
+
+.login .input-group {
+  padding: 15px 0 10px 0;
+}
+
+#login{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-150%, 80%);
+}
+
+#alert{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-150%, 400%);
+}
+
+@media screen and (max-width: 767px) {
+  html,
+  body {
+    height: 100%;
+    overflow-x: hidden; /* Prevent scroll on narrow devices */
+  }
+  body {
+    font: 16px "Helvetica Neue",Helvetica,Arial,"Hiragino Sans GB","Hiragino Sans GB W3","Microsoft YaHei UI","Microsoft YaHei","WenQuanYi Micro Hei","sans-serif";
+  }
+#login {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 30%);
+  }
+#alert{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 30%);
+}
+}

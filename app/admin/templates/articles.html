@@ -1,0 +1,31 @@
+{% extends 'common/base.html' %}
+{% block content %}
+<div class="admin-content">
+    <div class="row">
+        <div class="col-xs-12" id="write-article">
+            <span class="pull-right"> <i class="glyphicon glyphicon-pencil"></i> <a href="{{ url_for('admin.write') }}"> 写文章 </a> </span>
+        </div>
+        {% for article in articles %}
+        <div class="col-xs-12">
+            <h3>{{ article.title|title }}</h3>
+            <span class="pull-right small"> <a  href="javascript:delete_article()">删除 </a> | <a href="{{ url_for('admin.article_edit', article_id=article.id) }}">修改 </a></span>
+            {% if current_user.is_author() or current_user.is_admin() %}
+                <form method="post" role="form" id="delete_article_{{ article.id }}">
+                    {{ deleteArticleForm.hidden_tag() }}
+                    {{ deleteArticleForm.article_id(class="hidden", value=article.id) }}
+                </form>
+                <script type="text/javascript">
+                   function delete_article(){
+                       $("#delete_article_{{ article.id }}").submit() ;
+                   }
+                </script>
+            {% endif %}
+            <div class="entry-meta small">
+                <i class="glyphicon glyphicon-calendar"></i> {{ moment(article.timestamp).format('LL') }}
+                <i class="glyphicon glyphicon-user"></i> {{ article.author.username }}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

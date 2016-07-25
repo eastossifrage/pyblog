@@ -1,0 +1,45 @@
+{% extends 'default/common/base.html' %}
+{% block title %}
+    {{ super() }} —— {{ post.title }}
+
+{% endblock %}
+{% block content %}
+    <div class="col-xs-12 col-lg-11">
+        <h1>{{ post.title }}</h1>
+        <div class="entry-meta small">
+            <i class="glyphicon glyphicon-calendar"></i> <a>{{ moment(post.timestamp).format('LL') }}</a>
+            <i class="glyphicon glyphicon-user"></i> <a>{{ post.author.username }}</a>
+        </div>
+        <hr>
+        <div>
+            {{ text|markdown }}
+        </div>
+        <div class="gly-book">
+            <i class="glyphicon glyphicon-book"></i><a href="{{ url_for('main.category', c=post.category_name) }}"> {{ post.category_name }}</a>
+        </div>
+        <div class="gly-tags">
+            <i class="glyphicon glyphicon-tags"></i>
+            {% for tagged in post.taggeds %}
+                <a href="{{ url_for('main.tag', t=tagged.name) }}"> {{ tagged.name }} </a>
+            {% endfor %}
+        </div>
+        {% if duoshuo.status %}
+        <!-- 多说评论框 start -->
+        <div class="ds-thread" data-thread-key="{{ post.thread_key }}" data-title="{{ post.title }}" data-url="{{ url_for('main.article', pid=post.id) }}"></div>
+        <!-- 多说评论框 end -->
+        <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+        <script type="text/javascript">
+        var duoshuoQuery = {short_name:"{{ duoshuo.token}}"};
+            (function() {
+                var ds = document.createElement('script');
+                ds.type = 'text/javascript';ds.async = true;
+                ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+                ds.charset = 'UTF-8';
+                (document.getElementsByTagName('head')[0]
+                 || document.getElementsByTagName('body')[0]).appendChild(ds);
+            })();
+        </script>
+        <!-- 多说公共JS代码 end -->
+        {% endif %}
+    </div>
+{% endblock %}

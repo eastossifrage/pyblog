@@ -1,0 +1,18 @@
+{% extends 'common/base.html' %}
+{% block content %}
+<div class="admin-index">
+    <p>你正在使用的是 <span class="label label-default">pyblog 0.0.1</span> 版本</p>
+    <br>
+    <div>
+        <input class="btn btn-default" type="submit" value="检测更新">
+    </div>
+    <br>
+    <div class="col-xs-12 col-sm-offset-4">
+        <div class="col-xs-12 col-sm-4">
+            <div class="alert alert-danger small" role="alert">
+                该功能正在建设中...，详情请见<a href="#" class="alert-link"> GitHub！</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
