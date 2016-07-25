@@ -173,6 +173,13 @@ sudo ln -s /var/www/pyblog/pyblog_uwsgi.ini /etc/uwsgi/vassals</pre></div>
 <p>现在，flask应用就应该配置完成了。</p>
 
 <h3>
+<a id="配置flask应用数据库" class="anchor" href="#%E9%85%8D%E7%BD%AEflask%E5%BA%94%E7%94%A8%E6%95%B0%E6%8D%AE%E5%BA%93" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>配置flask应用数据库</h3>
+
+<div class="highlight highlight-source-shell"><pre>(flask)$ python manage.py db init
+(flask)$ python manage.py db migrate -m <span class="pl-s"><span class="pl-pds">"</span>initial migration<span class="pl-pds">"</span></span>
+(flask)$ python manage.py db upgrade</pre></div>
+
+<h3>
 <a id="重新启动服务" class="anchor" href="#%E9%87%8D%E6%96%B0%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>重新启动服务</h3>
 
 <div class="highlight highlight-source-shell"><pre>sudo service nginx restart
