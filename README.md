@@ -109,7 +109,7 @@ uwsgi --ini /var/www/pybolg/pyblog_uwsgi.ini
 
 我们的工作现在基本完成了，唯一剩下的事情是配置uWSGI在后台运行，这是uWSGI Emperor的职责。
 
-### uWSGI Emperor
+#### uWSGI Emperor
 
 创建一个初始配置来运行emperor - `sudo vi /etc/init/uwsgi.conf`：
 
@@ -132,5 +132,14 @@ sudo mkdir /etc/uwsgi && sudo mkdir /etc/uwsgi/vassals
 sudo ln -s /var/www/pyblog/pyblog_uwsgi.ini /etc/uwsgi/vassals
 ```
 
-现在，flask应用就应该配置完成了。你可以查看`/var/log/uwsgi/`文件夹下的access.log和error.log内容，并根据提示来判断程序是否正常运行。
+现在，flask应用就应该配置完成了。
+
+### 重新启动服务
+
+```bash
+sudo service nginx restart
+sudo service uwsgi restart
+```
+
+你可以查看`/var/log/uwsgi/`文件夹下的access.log和error.log内容，并根据提示来判断程序是否正常运行。
 
