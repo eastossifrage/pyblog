@@ -72,7 +72,8 @@ def article_settings():
         article = Article.query.get(int(delete_article_form.article_id.data))
         db.session.delete(article)
 
-    articles = Article.query.order_by(Article.timestamp.desc()).all()
+    page = request.args.get('page', 1, type=int)
+    articles = Article.query.order_by(Article.timestamp.desc()).paginate(page, per_page=current_app.config['OUSI_POSTS_PER_PAGE'], error_out=False)
 
     return render_template('articles.html', articles=articles, deleteArticleForm=delete_article_form)
 
@@ -219,12 +220,12 @@ def duoshuo():
     return render_template('plugins/duoshuo.html', duoshuoForm=duoshuo_form)
 
 
-@admin.route('/plugin/baidufenxi', methods=['GET', 'POST'])
+@admin.route('/plugin/baidutongji', methods=['GET', 'POST'])
 @login_required
 @admin_required
-def baidufenxi():
+def baidutongji():
     b = Plugin.query.filter_by(name=u'百度分析').first()
-    baidufenxi_form = BaidufenxiForm(prefix='baidufenxi', obj=b)
+    baidufenxi_form = BaidufenxiForm(prefix='baidutongji', obj=b)
     if b and baidufenxi_form.validate_on_submit():
         if baidufenxi_form.status.data == u'True':
             b.token = baidufenxi_form.token.data.strip()
@@ -239,7 +240,7 @@ def baidufenxi():
     if not b:
         flash({'error': u'百度分析插件设置失败，Pyblog未使用该插件！'})
 
-    return render_template('plugins/baidufenxi.html', baidufenxiForm=baidufenxi_form)
+    return render_template('plugins/baidutongji.html', baidufenxiForm=baidufenxi_form)
 
 
 def allowed_file(filename, filetype):
