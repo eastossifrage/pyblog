@@ -12,7 +12,7 @@
 ### 文件组织架构
 
 ```bash
-gyblog/
+pyblog/
     app/
     config.py
     manage.py
@@ -213,9 +213,18 @@ sudo ln -s /var/www/pyblog/pyblog_uwsgi.ini /etc/uwsgi/vassals
 
 ### 重新启动服务
 
+#### 1 - ubuntu 14.04 系统启动方式
+
 ```bash
 sudo service nginx restart
 sudo service uwsgi restart
+```
+
+#### 2 - ubuntu 16.04 系统启动方式
+
+```bash
+sudo systemctl restart nginx.service 
+sudo systemctl restart uwsgi.service
 ```
 
 你可以查看`/var/log/uwsgi/`文件夹下的access.log和error.log内容，并根据提示来判断程序是否正常运行。
