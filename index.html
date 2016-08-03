@@ -54,7 +54,7 @@
 <h3>
 <a id="文件组织架构" class="anchor" href="#%E6%96%87%E4%BB%B6%E7%BB%84%E7%BB%87%E6%9E%B6%E6%9E%84" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>文件组织架构</h3>
 
-<div class="highlight highlight-source-shell"><pre>gyblog/
+<div class="highlight highlight-source-shell"><pre>pyblog/
     app/
     config.py
     manage.py</pre></div>
@@ -239,15 +239,19 @@ sudo ln -s /var/www/pyblog/pyblog_uwsgi.ini /etc/uwsgi/vassals</pre></div>
 <h3>
 <a id="重新启动服务" class="anchor" href="#%E9%87%8D%E6%96%B0%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>重新启动服务</h3>
 
+<h4>
+<a id="1---ubuntu-1404-系统启动方式" class="anchor" href="#1---ubuntu-1404-%E7%B3%BB%E7%BB%9F%E5%90%AF%E5%8A%A8%E6%96%B9%E5%BC%8F" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1 - ubuntu 14.04 系统启动方式</h4>
+
 <div class="highlight highlight-source-shell"><pre>sudo service nginx restart
 sudo service uwsgi restart</pre></div>
 
+<h4>
+<a id="2---ubuntu-1604-系统启动方式" class="anchor" href="#2---ubuntu-1604-%E7%B3%BB%E7%BB%9F%E5%90%AF%E5%8A%A8%E6%96%B9%E5%BC%8F" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2 - ubuntu 16.04 系统启动方式</h4>
+
+<div class="highlight highlight-source-shell"><pre>sudo systemctl restart nginx.service 
+sudo systemctl restart uwsgi.service</pre></div>
+
 <p>你可以查看<code>/var/log/uwsgi/</code>文件夹下的access.log和error.log内容，并根据提示来判断程序是否正常运行。</p>
-
-<h3>
-<a id="示例网站" class="anchor" href="#%E7%A4%BA%E4%BE%8B%E7%BD%91%E7%AB%99" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>示例网站</h3>
-
-<p><a href="http://www.os373.cn">藕丝空间 —— 一个寻找志同道合的合伙人的网站</a> </p>
       </section>
     </div>
 
