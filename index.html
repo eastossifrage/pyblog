@@ -62,7 +62,8 @@
 <h3>
 <a id="前提条件" class="anchor" href="#%E5%89%8D%E6%8F%90%E6%9D%A1%E4%BB%B6" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>前提条件</h3>
 
-<div class="highlight highlight-source-shell"><pre>sudo apt-get install python-setuptools
+<div class="highlight highlight-source-shell"><pre>sudo apt-get update <span class="pl-k">&amp;&amp;</span> sudo apt-get upgrade
+sudo apt-get install python-setuptools
 sudo easy_install pip
 sudo pip install virtualenv</pre></div>
 
@@ -92,7 +93,7 @@ $ sudo apt-get install nginx</pre></div>
 <div class="highlight highlight-source-shell"><pre>$ <span class="pl-c1">cd</span> /var/www
 $ sudo apt-get install python-virtualenv
 $ sudo mkdir pyblog <span class="pl-c">#可以自定义目录的命名</span>
-$ sudo chown os373:os373 -R pyblog/
+$ sudo chown os373:os373 -R pyblog/ <span class="pl-c"># os373 为系统的当前示例用户</span>
 $ git clone git@github.com:eastossifrage/pyblog.git
 $ <span class="pl-c1">cd</span> pyblog 
 $ virtualenv flask
@@ -172,7 +173,10 @@ logto = /var/log/uwsgi/%n.log
 
 <p>执行uWSGI，用新创建的配置文件作为参数：</p>
 
-<div class="highlight highlight-source-shell"><pre>uwsgi --ini /var/www/pybolg/pyblog_uwsgi.ini</pre></div>
+<div class="highlight highlight-source-shell"><pre>uwsgi --uid os373 --gid os373 --ini /var/www/pybolg/pyblog_uwsgi.ini</pre></div>
+
+<h3>
+<a id="后台启动-uwsgi" class="anchor" href="#%E5%90%8E%E5%8F%B0%E5%90%AF%E5%8A%A8-uwsgi" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>后台启动 uwsgi</h3>
 
 <p>我们的工作现在基本完成了，唯一剩下的事情是配置uWSGI在后台运行，这是uWSGI Emperor的职责。</p>
 
@@ -207,7 +211,7 @@ Description=uWSGI Emperor
 After=syslog.target
 
 [Service]
-ExecStart=/usr/local/bin/uwsgi --master --emperor /etc/uwsgi/vassals --uid os373 --gid os373 --logto /var/log/wuwsgi/emperor.log
+ExecStart=/usr/local/bin/uwsgi --master --emperor /etc/uwsgi/vassals --uid os373 --gid os373 --logto /var/log/uwsgi/emperor.log
 Restart=always
 KillSignal=SIGQUIT
 Type=notify
