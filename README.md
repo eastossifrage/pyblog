@@ -179,7 +179,7 @@ Description=uWSGI Emperor
 After=syslog.target
 
 [Service]
-ExecStart=/usr/local/bin/uwsgi --master --emperor /etc/uwsgi/vassals --uid os373 --gid os373 --logto /var/log/wuwsgi/emperor.log
+ExecStart=/usr/local/bin/uwsgi --master --emperor /etc/uwsgi/vassals --uid os373 --gid os373 --logto /var/log/uwsgi/emperor.log
 Restart=always
 KillSignal=SIGQUIT
 Type=notify
