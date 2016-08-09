@@ -21,6 +21,7 @@ pyblog/
 ### 前提条件
 
 ```bash
+sudo apt-get update && sudo apt-get upgrade
 sudo apt-get install python-setuptools
 sudo easy_install pip
 sudo pip install virtualenv
@@ -54,7 +55,7 @@ sudo pip install uwsgi
 $ cd /var/www
 $ sudo apt-get install python-virtualenv
 $ sudo mkdir pyblog #可以自定义目录的命名
-$ sudo chown os373:os373 -R pyblog/
+$ sudo chown os373:os373 -R pyblog/ # os373 为系统的当前示例用户
 $ git clone git@github.com:eastossifrage/pyblog.git
 $ cd pyblog 
 $ virtualenv flask
@@ -139,9 +140,9 @@ logto = /var/log/uwsgi/%n.log
 执行uWSGI，用新创建的配置文件作为参数：
 
 ```bash
-uwsgi --ini /var/www/pybolg/pyblog_uwsgi.ini
+uwsgi --uid os373 --gid os373 --ini /var/www/pybolg/pyblog_uwsgi.ini
 ```
-
+### 后台启动 uwsgi
 我们的工作现在基本完成了，唯一剩下的事情是配置uWSGI在后台运行，这是uWSGI Emperor的职责。
 
 #### 1 - uWSGI Emperor (在 ubuntu14.04上实验成功)
@@ -228,4 +229,5 @@ sudo systemctl restart uwsgi.service
 ```
 
 你可以查看`/var/log/uwsgi/`文件夹下的access.log和error.log内容，并根据提示来判断程序是否正常运行。
+
 
