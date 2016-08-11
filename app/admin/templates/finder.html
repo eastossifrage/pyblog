@@ -66,9 +66,11 @@
                                     </label>
                                     </form>
                                 </li>
+                                {% if directory.current_path == '' %}
                                 <li>
                                     <a type="button" title="新建文件夹" class="btn" data-toggle="modal" data-target="#myFolder"><i class="glyphicon glyphicon-plus"></i> </a>
                                 </li>
+                                {% endif %}
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
                                 <li><a href="{{ url_for('main.index') }}">主页</a></li>

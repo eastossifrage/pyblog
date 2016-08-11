@@ -1,11 +1,12 @@
 {% extends 'common/base.html' %}
+{% import "default/macros/_patination.html" as page_macros %}
 {% block content %}
 <div class="admin-content">
     <div class="row">
         <div class="col-xs-12" id="write-article">
             <span class="pull-right"> <i class="glyphicon glyphicon-pencil"></i> <a href="{{ url_for('admin.write') }}"> 写文章 </a> </span>
         </div>
-        {% for article in articles %}
+        {% for article in articles.items %}
         <div class="col-xs-12">
             <h3>{{ article.title|title }}</h3>
             <span class="pull-right small"> <a  href="javascript:delete_article()">删除 </a> | <a href="{{ url_for('admin.article_edit', article_id=article.id) }}">修改 </a></span>
@@ -27,5 +28,6 @@
         </div>
         {% endfor %}
     </div>
+    {{ page_macros.pagination_widget(articles, 'admin.article_settings') }}
 </div>
 {% endblock %}
