@@ -123,6 +123,18 @@ class Article(db.Model):
         return Category.query.get(self.category_id)
 
     @property
+    def previous(self):
+        pre_id = self.id - 1
+
+        return self.query.get(pre_id)
+
+    @property
+    def next(self):
+        next_id = self.id + 1
+
+        return self.query.get(next_id)
+
+    @property
     def taggeds(self):
         return Tag.query.join(TagSpaces, TagSpaces.tag_id == Tag.id).filter(TagSpaces.article_id == self.id)
 

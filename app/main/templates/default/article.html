@@ -23,6 +23,18 @@
                 <a href="{{ url_for('main.tag', t=tagged.name) }}"> {{ tagged.name }} </a>
             {% endfor %}
         </div>
+        <ul class="pager">
+            {% if post.previous %}
+                <li class="previous"><a href="{{ url_for('main.article', pid=post.previous.id) }}" data-toggle="tooltip" data-placement="bottom" title="{{ post.previous.title }}"><span aria-hidden="true">&larr;</span> 上一篇</a></li>
+            {% else %}
+                <li class="previous disabled"><a href="javascript:void(0)" data-toggle="tooltip" data-placement="bottom" title="没有文章了"><span aria-hidden="true">&larr;</span> 上一篇</a></li>
+            {% endif %}
+            {% if post.next %}
+                <li class="next"><a href="{{ url_for('main.article', pid=post.next.id) }}" data-toggle="tooltip" data-placement="bottom" title="{{ post.next.title }}">下一篇<span aria-hidden="true">&rarr;</span></a></li>
+            {% else %}
+                <li class="next disabled"><a href="javascript:void(0)" data-toggle="tooltip" data-placement="bottom" title="没有文章了">下一篇<span aria-hidden="true">&rarr;</span></a></li>
+            {% endif %}
+        </ul>
         {% if duoshuo.status %}
         <!-- 多说评论框 start -->
         <div class="ds-thread" data-thread-key="{{ post.thread_key }}" data-title="{{ post.title }}" data-url="{{ url_for('main.article', pid=post.id) }}"></div>
