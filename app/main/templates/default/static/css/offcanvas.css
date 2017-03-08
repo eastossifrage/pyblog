@@ -11,6 +11,18 @@ body {
   font: 16px "Helvetica Neue",Helvetica,Arial,"Hiragino Sans GB","Hiragino Sans GB W3","Microsoft YaHei UI","Microsoft YaHei","WenQuanYi Micro Hei","sans-serif";
 }
 
+.article{
+  line-height: 1.62857143;
+}
+
+.article p {
+  text-indent: 2em;
+}
+
+.article>p>img {
+  display: block; 
+}
+
 i {
   padding-right: 8px;
 }
