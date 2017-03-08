@@ -13,7 +13,7 @@ class CustomRenderer(m.HtmlRenderer):
 		if not lang:
 			return u'\n<pre><code>{}</code></pre>\n'.format(text.strip())
 		lexer = get_lexer_by_name(lang, stripall=True)
-		formatter = HtmlFormatter()
+		formatter = HtmlFormatter(linenos='inline')
 
 		return highlight(code=text, lexer=lexer, formatter=formatter)
 
