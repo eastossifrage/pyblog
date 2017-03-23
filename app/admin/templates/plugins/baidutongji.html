@@ -4,32 +4,32 @@
     <div class="row">
         <div class="col-xs-12 col-sm-offset-2">
             <form method="post" role="form">
-                {{ baidufenxiForm.hidden_tag() }}
+                {{ baidutongjiForm.hidden_tag() }}
                 <div class="col-xs-12 col-sm-8">
                     {% include 'common/alert.html' %}<!-- flash提示 end -->
-                    <!-- 错误信息baidufenxiForm提示 -->
-                    {% for field_name, field_errors in baidufenxiForm.errors|dictsort if field_errors %}
+                    <!-- 错误信息baidutongjiForm提示 -->
+                    {% for field_name, field_errors in baidutongjiForm.errors|dictsort if field_errors %}
                         {% for error in field_errors %}
                             <div class="error">
                                 <div class="alert alert-danger alert-dismissible" role="alert" style="margin: 20px">
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <strong>{{ baidufenxiForm[field_name].label }}错误：</strong> {{ error }}
+                                    <strong>{{ baidutongjiForm[field_name].label }}错误：</strong> {{ error }}
                                 </div>
                             </div>
                         {% endfor %}
                     {% endfor %}
-                    <!-- 错误信息baidufenxiForm提示 end -->
+                    <!-- 错误信息baidutongjiForm提示 end -->
                     <div class="input-group">
                         <span class="input-group-addon" id="basic-addon1"><i class="glyphicon glyphicon-asterisk"></i> </span>
-                        {{ baidufenxiForm.token(class="form-control", placeholder="输入百度统计的hm.src的ID", required="", autofocus="") }}
+                        {{ baidutongjiForm.token(class="form-control", placeholder="输入百度统计的hm.src的ID", required="", autofocus="") }}
                     </div>
                     <div class="input-group">
                         <span class="input-group-addon" id="basic-addon2"><i class="glyphicon glyphicon-cog"></i> </span>
-                        {{ baidufenxiForm.status(class="form-control") }}
+                        {{ baidutongjiForm.status(class="form-control") }}
                     </div>
                     <div class="pull-right">
                         <input class="btn btn-default" type="reset" value="重 置">
-                        {{ baidufenxiForm.submit(class="btn btn-primary") }}
+                        {{ baidutongjiForm.submit(class="btn btn-primary") }}
                     </div>
                 </div>
             </form>

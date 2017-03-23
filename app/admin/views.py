@@ -7,7 +7,7 @@ from . import admin
 from datetime import datetime
 from ..import db
 from .forms import AddAdminForm, LoginForm, AddUserForm, DeleteUserForm, EditUserForm, WriteArticleForm, \
-    EditArticleForm, DeleteArticleForm, ChangePasswordForm, DuoshuoForm, BaidufenxiForm, AddFolderFOrm
+    EditArticleForm, DeleteArticleForm, ChangePasswordForm, YouyanForm, BaidutongjiForm, AddFolderFOrm
 from ..models import User, Category, Tag, Article, Plugin, Finder
 from ..decorators import admin_required, author_required, tag_split
 import os
@@ -197,50 +197,50 @@ def password():
     return render_template('password.html', changePasswordForm=change_password_form)
 
 
-@admin.route('/plugin/duoshuo', methods=['GET', 'POST'])
+@admin.route('/plugin/youyan', methods=['GET', 'POST'])
 @login_required
 @admin_required
-def duoshuo():
-    d = Plugin.query.filter_by(name=u'多说').first()
-    duoshuo_form = DuoshuoForm(prefix='duoshuo', obj=d)
-    if d and duoshuo_form.validate_on_submit():
-        if duoshuo_form.status.data == u'True':
-            d.token = duoshuo_form.token.data.strip()
+def youyan():
+    d = Plugin.query.filter_by(name=u'友言').first()
+    youyan_form = YouyanForm(prefix='youyan', obj=d)
+    if d and youyan_form.validate_on_submit():
+        if youyan_form.status.data == u'True':
+            d.token = youyan_form.token.data.strip()
             d.status = True
-            flash({'success': u'多说插件成功设置为启用状态！'})
-        elif duoshuo_form.status.data == u'False':
-            d.token = duoshuo_form.token.data.strip()
+            flash({'success': u'友言插件成功设置为启用状态！'})
+        elif youyan_form.status.data == u'False':
+            d.token = youyan_form.token.data.strip()
             d.status = False
-            flash({'success': u'多说插件设置为停用状态！'})
+            flash({'success': u'友言插件设置为停用状态！'})
         else:
-            flash({'error': u'多说插件设置失败！'})
+            flash({'error': u'友言插件设置失败！'})
     if not d:
-        flash({'error': u'多说插件设置失败，Pyblog未使用该插件！'})
+        flash({'error': u'友言插件设置失败，Pyblog未使用该插件！'})
 
-    return render_template('plugins/duoshuo.html', duoshuoForm=duoshuo_form)
+    return render_template('plugins/youyan.html', youyanForm=youyan_form)
 
 
 @admin.route('/plugin/baidutongji', methods=['GET', 'POST'])
 @login_required
 @admin_required
 def baidutongji():
-    b = Plugin.query.filter_by(name=u'百度分析').first()
-    baidufenxi_form = BaidufenxiForm(prefix='baidutongji', obj=b)
-    if b and baidufenxi_form.validate_on_submit():
-        if baidufenxi_form.status.data == u'True':
-            b.token = baidufenxi_form.token.data.strip()
+    b = Plugin.query.filter_by(name=u'百度统计').first()
+    baidutongji_form = BaidutongjiForm(prefix='baidutongji', obj=b)
+    if b and baidutongji_form.validate_on_submit():
+        if baidutongji_form.status.data == u'True':
+            b.token = baidutongji_form.token.data.strip()
             b.status = True
-            flash({'success': u'百度分析插件成功设置为启用状态！'})
-        elif baidufenxi_form.status.data == u'False':
-            b.token = baidufenxi_form.token.data.strip()
+            flash({'success': u'百度统计插件成功设置为启用状态！'})
+        elif baidutongji_form.status.data == u'False':
+            b.token = baidutongji_form.token.data.strip()
             b.status = False
-            flash({'success': u'百度分析插件设置为停用状态！'})
+            flash({'success': u'百度统计插件设置为停用状态！'})
         else:
-            flash({'error': u'百度分析插件设置失败！'})
+            flash({'error': u'百度统计插件设置失败！'})
     if not b:
-        flash({'error': u'百度分析插件设置失败，Pyblog未使用该插件！'})
+        flash({'error': u'百度统计插件设置失败，Pyblog未使用该插件！'})
 
-    return render_template('plugins/baidutongji.html', baidufenxiForm=baidufenxi_form)
+    return render_template('plugins/baidutongji.html', baidutongjiForm=baidutongji_form)
 
 
 def allowed_file(filename, filetype):

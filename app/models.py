@@ -168,7 +168,7 @@ class Plugin(db.Model):
 
     @staticmethod
     def insert_plugins():
-        plugins = [u'微信', u'微博', u'多说', u'百度分析']
+        plugins = [u'微信', u'微博', u'友言', u'百度分析']
         for p in plugins:
             plugin = Plugin.query.filter_by(name=p).first()
             if plugin is None:

@@ -40,9 +40,9 @@ def article(pid):
     renderer = CustomRenderer()
     md = m.Markdown(renderer=renderer, extensions=('fenced-code', 'tables'))
     text = md(post.body)
-    duoshuo = Plugin.query.filter_by(name=u'多说').first()
+    youyan = Plugin.query.filter_by(name=u'友言').first()
 
-    return render_template('default/article.html', text=text, post=post, duoshuo=duoshuo)
+    return render_template('default/article.html', text=text, post=post, youyan=youyan)
 
 
 @main.route('/tag/<t>', methods=['GET', 'POST'])

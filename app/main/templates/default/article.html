@@ -35,23 +35,11 @@
                 <li class="next disabled"><a href="javascript:void(0)" data-toggle="tooltip" data-placement="bottom" title="没有文章了">下一篇<span aria-hidden="true">&rarr;</span></a></li>
             {% endif %}
         </ul>
-        {% if duoshuo.status %}
-        <!-- 多说评论框 start -->
-        <div class="ds-thread" data-thread-key="{{ post.thread_key }}" data-title="{{ post.title }}" data-url="{{ url_for('main.article', pid=post.id) }}"></div>
-        <!-- 多说评论框 end -->
-        <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-        <script type="text/javascript">
-        var duoshuoQuery = {short_name:"{{ duoshuo.token}}"};
-            (function() {
-                var ds = document.createElement('script');
-                ds.type = 'text/javascript';ds.async = true;
-                ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-                ds.charset = 'UTF-8';
-                (document.getElementsByTagName('head')[0]
-                 || document.getElementsByTagName('body')[0]).appendChild(ds);
-            })();
-        </script>
-        <!-- 多说公共JS代码 end -->
+        {% if youyan.status %}
+        <!-- UY BEGIN -->
+            <div id="uyan_frame"></div>
+            <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid={{ youyan.token}}"></script>
+        <!-- UY END -->
         {% endif %}
     </div>
 {% endblock %}
