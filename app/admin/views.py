@@ -43,14 +43,14 @@ def login():
     else:
         if login_form.validate_on_submit():
             u = User.query.filter_by(email=login_form.email.data.strip()).first()
-            if u is not None and user.verify_password(login_form.password.data.strip()) and user.status:
+            if u is not None and u.verify_password(login_form.password.data.strip()) and u.status:
                 login_user(user=u, remember=login_form.remember_me.data)
-                return redirect(request.args.get('next') and url_for('admin.index'))
-            elif not user.status:
+                return redirect(url_for('admin.index'))
+            elif not u.status:
                 flash({'error': u'用户已被管理员注销！'})
-            elif user is None:
+            elif u is None:
                 flash({'error': u'邮箱未注册！'})
-            elif not user.verify_password(login_form.password.data.strip()):
+            elif not u.verify_password(login_form.password.data.strip()):
                 flash({'error': u'密码不正确！'})
 
     return render_template('login.html', loginForm=login_form)
@@ -189,7 +189,8 @@ def password():
     if change_password_form.validate_on_submit():
         if current_user.verify_password(change_password_form.old_password.data.strip()):
             current_user.password = change_password_form.password.data.strip()
-            db.session.add(current_user)
+            # db.session.add(current_user)
+            db.session.commit()
             flash({'success': u'您的账户密码已修改成功！'})
         else:
             flash({'error': u'无效的旧密码！'})
