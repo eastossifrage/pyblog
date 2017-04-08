@@ -35,13 +35,13 @@
                         <td>注销</td>
                     {% endif %}
                     <td><a href="{{ url_for('admin.user_edit', user_id=user.id) }}"> 修改</a> |
-                        <a href="javascript:delete_user()">删除</a>
+                        <a href="javascript:delete_user_{{ user.id }}()">删除</a>
                         <form method="post" role="form" id="delete_user_{{ user.id }}">
                             {{ deleteUserForm.hidden_tag() }}
                             {{ deleteUserForm.user_id(class="hidden", value=user.id) }}
                         </form>
                         <script type="text/javascript">
-                           function delete_user(){
+                           function delete_user_{{ user.id }}(){
                                $("#delete_user_{{ user.id }}").submit() ;
                            }
                         </script>
