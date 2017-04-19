@@ -43,13 +43,13 @@ def login():
     else:
         if login_form.validate_on_submit():
             u = User.query.filter_by(email=login_form.email.data.strip()).first()
-            if u is not None and u.verify_password(login_form.password.data.strip()) and u.status:
+            if u is None:
+                flash({'error': u'邮箱未注册！'})
+            elif u is not None and u.verify_password(login_form.password.data.strip()) and u.status:
                 login_user(user=u, remember=login_form.remember_me.data)
                 return redirect(url_for('admin.index'))
             elif not u.status:
                 flash({'error': u'用户已被管理员注销！'})
-            elif u is None:
-                flash({'error': u'邮箱未注册！'})
             elif not u.verify_password(login_form.password.data.strip()):
                 flash({'error': u'密码不正确！'})
 
