@@ -86,7 +86,7 @@ def article_edit(article_id):
     edit_article_form = EditArticleForm(prefix='edit_article', obj=article)
     if edit_article_form.validate_on_submit():
         cty = Category.query.filter_by(name=edit_article_form.category_name.data.strip()).first()
-        if not cty:
+        if not cty and edit_article_form.category.data.strip() != '':
             cty = Category(name=edit_article_form.category_name.data.strip())
             db.session.add(cty)
         article.title = edit_article_form.title.data
@@ -110,7 +110,7 @@ def write():
     write_article_form = WriteArticleForm(prefix='write')
     if write_article_form.validate_on_submit():
         cty = Category.query.filter_by(name=write_article_form.category.data.strip()).first()
-        if not cty:
+        if not cty and write_article_form.category.data.strip() != '':
             cty = Category(name=write_article_form.category.data.strip())
             db.session.add(cty)
         a = Article(title=write_article_form.title.data.strip(),

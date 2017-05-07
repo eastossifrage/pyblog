@@ -16,18 +16,18 @@
                 </a>
             </div>
             <div class="col-xs-12">
-                {{ editArticleForm.body(class="form-control", rows="30", placeholder="仅支持Markdown语法")}}
+                {{ editArticleForm.body(class="form-control", required="", rows="30", placeholder="仅支持Markdown语法")}}
             </div>
             <div class="col-xs-12 col-sm-6">
                 <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-book"></i></span>
-                    {{ editArticleForm.category_name(class="form-control", placeholder="文章类表")}}
+                    {{ editArticleForm.category_name(class="form-control", required="", placeholder="文章类别")}}
                 </div>
             </div>
             <div class="col-xs-12 col-sm-6">
                 <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-tags"></i></span>
-                    {{ editArticleForm.tags_name(class="form-control", placeholder="文章标签，用逗号分隔")}}
+                    {{ editArticleForm.tags_name(class="form-control", required="", placeholder="文章标签，用逗号分隔")}}
                 </div>
             </div>
             <div class="col-xs-12">
