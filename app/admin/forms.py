@@ -93,12 +93,6 @@ class DeleteArticleForm(Form):
     article_id = StringField()
 
 
-class YouyanForm(Form):
-    token = StringField(u'健值')
-    status = SelectField(u'状态', choices=[(u'True', u'启用'), (u'False', u'停用')])
-    submit = SubmitField(u'提交')
-
-
 class BaidutongjiForm(Form):
     token = StringField(u'健值')
     status = SelectField(u'状态', choices=[(u'True', u'启用'), (u'False', u'停用')])

@@ -7,7 +7,7 @@ from . import admin
 from datetime import datetime
 from ..import db
 from .forms import AddAdminForm, LoginForm, AddUserForm, DeleteUserForm, EditUserForm, WriteArticleForm, \
-    EditArticleForm, DeleteArticleForm, ChangePasswordForm, YouyanForm, BaidutongjiForm, AddFolderFOrm
+    EditArticleForm, DeleteArticleForm, ChangePasswordForm, BaidutongjiForm, AddFolderFOrm
 from ..models import User, Category, Tag, Article, Plugin, Finder
 from ..decorators import admin_required, author_required, tag_split
 import os
@@ -196,29 +196,6 @@ def password():
             flash({'error': u'无效的旧密码！'})
 
     return render_template('password.html', changePasswordForm=change_password_form)
-
-
-@admin.route('/plugin/youyan', methods=['GET', 'POST'])
-@login_required
-@admin_required
-def youyan():
-    d = Plugin.query.filter_by(name=u'友言').first()
-    youyan_form = YouyanForm(prefix='youyan', obj=d)
-    if d and youyan_form.validate_on_submit():
-        if youyan_form.status.data == u'True':
-            d.token = youyan_form.token.data.strip()
-            d.status = True
-            flash({'success': u'友言插件成功设置为启用状态！'})
-        elif youyan_form.status.data == u'False':
-            d.token = youyan_form.token.data.strip()
-            d.status = False
-            flash({'success': u'友言插件设置为停用状态！'})
-        else:
-            flash({'error': u'友言插件设置失败！'})
-    if not d:
-        flash({'error': u'友言插件设置失败，Pyblog未使用该插件！'})
-
-    return render_template('plugins/youyan.html', youyanForm=youyan_form)
 
 
 @admin.route('/plugin/baidutongji', methods=['GET', 'POST'])
