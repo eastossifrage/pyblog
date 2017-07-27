@@ -1,4 +1,8 @@
 {% extends 'default/common/base.html' %}
+{% block desc %}
+    {{ text|markdown|striptags|truncate(length=50, killwords=False, end="......") }}
+{% endblock %}
+
 {% block title %}
     {{ super() }} —— {{ post.title }}
 

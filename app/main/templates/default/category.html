@@ -1,5 +1,9 @@
 {% extends 'default/common/base.html' %}
 {% import "default/macros/_patination.html" as page_macros %}
+{% block desc %}{{ category.name }}{% endblock %}
+{% block title %}
+    {{ super() }} —— {{ category.name }}
+{% endblock %}
 {% block content %}
     {% for article in articles.items %}
     <div class="col-xs-12 col-lg-11">
