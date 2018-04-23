@@ -18,7 +18,7 @@ class LoginForm(Form):
 
 class AddAdminForm(Form):
     username = StringField(u'用户名', validators=[DataRequired(), Length(1, 16, message=u'用户名长度要在1和16之间'),
-                           Regexp(ur'^[\u4E00-\u9FFF]+$', flags=0, message=u'用户名必须为中文')])
+                           Regexp(u'^[\u4E00-\u9FFF]+$', flags=0, message=u'用户名必须为中文')])
     email = StringField(u'邮箱', validators=[DataRequired(), Length(6, 64, message=u'邮件长度要在6和64之间'),
                         Email(message=u'邮件格式不正确！')])
     password = PasswordField(u'密码', validators=[DataRequired(), EqualTo(u'password2', message=u'密码必须一致！')])
