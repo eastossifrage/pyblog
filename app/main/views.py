@@ -89,4 +89,4 @@ def search_results(query):
     page = request.args.get('page', 1, type=int)
     articles = Article.query.filter(Article.body.like('%%%s%%' % query)).order_by(Article.timestamp.desc()). \
         paginate(page, per_page=current_app.config['OUSI_POSTS_PER_PAGE'], error_out=False)
-    return render_template('default/search_result.html', articles=articles)
+    return render_template('default/search_result.html', articles=articles, query=query)

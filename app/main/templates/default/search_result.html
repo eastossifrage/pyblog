@@ -24,6 +24,6 @@
     </div>
     {% endfor %}
 
-    {{ page_macros.pagination_widget(articles, '.index') }}
+    {{ page_macros.pagination_widget(articles, '.search_results', query=query) }}
 
 {% endblock %}
