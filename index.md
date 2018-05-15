@@ -1,6 +1,6 @@
 # Pyblog —— 喜欢Markdown，爱上Pyblog!
 
-> Pyblog 是一个简单易用的在线 Markdown 博客系统，它使用 Python 的 flask 架构，理论上支持所有 flask-sqlalchemy 所能支持的数据库。博客的内容全部是 Markdown 格式，你只需要将写好的 Markdown文件的内容提交即可。同时支持多说评论，百度统计，代码高亮等常用功能。
+> Pyblog 是一个简单易用的在线 Markdown 博客系统，它使用 Python 的 flask 架构，理论上支持所有 flask-sqlalchemy 所能支持的数据库。博客的内容全部是 Markdown 格式，你只需要将写好的 Markdown文件的内容提交即可。Just so!
 
 ## 使用用法
 ### 应用环境介绍
