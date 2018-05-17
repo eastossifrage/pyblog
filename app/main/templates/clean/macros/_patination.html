@@ -1,0 +1,27 @@
+{% macro pagination_widget(pagination, endpoint) %}
+<!-- pagination 分页 -->
+<ul class="pagination float-right">
+    <li {% if not pagination.has_prev %}class="page-item disabled"{% endif %}>
+        <a class="page-link" href="{% if pagination.has_prev %}{{ url_for(endpoint, page=pagination.page - 1, **kwargs) }}{% else %}#{% endif %}">
+        <span>&laquo;</span>
+        </a>
+    </li>
+    {% for p in pagination.iter_pages() %}
+        {% if p %}
+            {% if p == pagination.page %}
+            <li class="page-item active"><a class="page-link" href="{{ url_for(endpoint, page=p, **kwargs) }}">{{ p }}</a></li>
+            {% else %}
+            <li class="page-item"><a class="page-link" href="{{ url_for(endpoint, page=p, **kwargs) }}">{{ p }}</a></li>
+            {% endif %}
+        {% else %}
+        <li class="page-item disabled"><a class="page-link" href="#">&hellip;</a></li>
+        {% endif %}
+    {% endfor %}
+    <li {% if not pagination.has_next %}class="page-item disabled"{% endif %}>
+        <a class="page-link" href="{% if pagination.has_next %}{{ url_for(endpoint, page=pagination.page + 1, **kwargs) }}{% else %}#{% endif %}">
+        <span>&raquo;</span>
+        </a>
+    </li>
+</ul>
+<!-- end pagination 分页 -->
+{% endmacro %}

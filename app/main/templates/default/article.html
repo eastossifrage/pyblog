@@ -1,49 +1,44 @@
-{% extends 'default/common/base.html' %}
+{% extends 'common/base.html' %}
 {% block desc %}
-    {{ text|markdown|striptags|truncate(length=50, killwords=False, end="......") }}
+    {{ article.body_html|striptags|truncate(length=50, killwords=False, end="......") }}
 {% endblock %}
 
 {% block title %}
-    {{ super() }} —— {{ post.title }}
+    {{ super() }} —— {{ article.title }}
 
 {% endblock %}
 {% block content %}
     <div class="col-xs-12 col-lg-11">
-        <h1>{{ post.title }}</h1>
+        <h2>{{ article.title }}</h2>
         <div class="entry-meta small">
-            <i class="glyphicon glyphicon-calendar"></i> <a>{{ moment(post.timestamp).format('LL') }}</a>
-            <i class="glyphicon glyphicon-user"></i> <a>{{ post.author.username }}</a>
+            <i class="glyphicon glyphicon-calendar"></i> <a>{{ moment(article.timestamp).format('LL') }}</a>
+            <i class="glyphicon glyphicon-user"></i> <a>{{ article.author.username }}</a>
         </div>
         <hr>
         <div class="article">
-            {{ text|markdown }}
+            {{ article.body_html|safe }}
         </div>
         <div class="gly-book">
-            <i class="glyphicon glyphicon-book"></i><a href="{{ url_for('main.category', c=post.category_name) }}"> {{ post.category_name }}</a>
+            <i class="glyphicon glyphicon-book"></i><a href="{{ url_for('main.category', c=article.category_name) }}"> {{ article.category_name }}</a>
         </div>
         <div class="gly-tags">
             <i class="glyphicon glyphicon-tags"></i>
-            {% for tagged in post.taggeds %}
+            {% for tagged in article.taggeds %}
                 <a href="{{ url_for('main.tag', t=tagged.name) }}"> {{ tagged.name }} </a>
             {% endfor %}
         </div>
         <ul class="pager">
-            {% if post.previous %}
-                <li class="previous"><a href="{{ url_for('main.article', pid=post.previous.id) }}" data-toggle="tooltip" data-placement="bottom" title="{{ post.previous.title }}"><span aria-hidden="true">&larr;</span> 上一篇</a></li>
+            {% if article.previous %}
+                <li class="previous"><a href="{{ url_for('main.article', pid=article.previous.id) }}" data-toggle="tooltip" data-placement="bottom" title="{{ article.previous.title }}"><span aria-hidden="true">&larr;</span> 上一篇</a></li>
             {% else %}
                 <li class="previous disabled"><a href="javascript:void(0)" data-toggle="tooltip" data-placement="bottom" title="没有文章了"><span aria-hidden="true">&larr;</span> 上一篇</a></li>
             {% endif %}
-            {% if post.next %}
-                <li class="next"><a href="{{ url_for('main.article', pid=post.next.id) }}" data-toggle="tooltip" data-placement="bottom" title="{{ post.next.title }}">下一篇<span aria-hidden="true">&rarr;</span></a></li>
+            {% if article.next %}
+                <li class="next"><a href="{{ url_for('main.article', pid=article.next.id) }}" data-toggle="tooltip" data-placement="bottom" title="{{ article.next.title }}">下一篇<span aria-hidden="true">&rarr;</span></a></li>
             {% else %}
                 <li class="next disabled"><a href="javascript:void(0)" data-toggle="tooltip" data-placement="bottom" title="没有文章了">下一篇<span aria-hidden="true">&rarr;</span></a></li>
             {% endif %}
         </ul>
-        {% if youyan.status %}
-        <!-- UY BEGIN -->
-            <div id="uyan_frame"></div>
-            <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid={{ youyan.token}}"></script>
-        <!-- UY END -->
-        {% endif %}
+
     </div>
 {% endblock %}

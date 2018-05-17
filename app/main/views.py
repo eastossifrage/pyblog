@@ -3,11 +3,8 @@ __author__ = '东方鹗'
 
 from flask import render_template, redirect, request, current_app, url_for, g
 from . import main
-from .._customs import CustomRenderer
-import misaka as m
-from ..models import Article, Tag, Category, TagSpaces, Plugin
+from ..models import Article, Tag, Category, TagSpaces
 from .forms import SearchForm
-from datetime import datetime
 
 
 @main.before_request
@@ -22,7 +19,6 @@ def before_request():
             time_tag.append(a.timestamp.strftime('%Y-%m'))
     g.time_tag = time_tag
     g.search_form = SearchForm(prefix='search')
-    g.baidufenxi = Plugin.query.filter_by(name=u'百度分析').first()
 
 
 @main.route('/', methods=['GET', 'POST'])
@@ -31,18 +27,18 @@ def index():
     articles = Article.query.order_by(Article.timestamp.desc()). \
         paginate(page, per_page=current_app.config['OUSI_POSTS_PER_PAGE'], error_out=False)
 
-    return render_template('default/index.html', articles=articles)
+    return render_template('index.html', articles=articles)
+
+@main.route('/about', methods=['GET', 'POST'])
+def about():
+    return render_template('about.html')
 
 
 @main.route('/article/<pid>', methods=['GET', 'POST'])
 def article(pid):
-    post = Article.query.get(int(pid))
-    renderer = CustomRenderer()
-    md = m.Markdown(renderer=renderer, extensions=('fenced-code', 'tables'))
-    text = md(post.body)
-    youyan = Plugin.query.filter_by(name=u'友言').first()
+    article = Article.query.get(int(pid))
 
-    return render_template('default/article.html', text=text, post=post, youyan=youyan)
+    return render_template('article.html', article=article)
 
 
 @main.route('/tag/<t>', methods=['GET', 'POST'])
@@ -53,7 +49,7 @@ def tag(t):
         order_by(Article.timestamp.desc()). \
         paginate(page, per_page=current_app.config['OUSI_POSTS_PER_PAGE'], error_out=False)
 
-    return render_template('default/tag.html', articles=articles, tag=tag)
+    return render_template('tag.html', articles=articles, tag=tag)
 
 
 @main.route('/category/<c>', methods=['GET', 'POST'])
@@ -63,7 +59,7 @@ def category(c):
     articles = Article.query.filter_by(cty=cty).order_by(Article.timestamp.desc()). \
         paginate(page, per_page=current_app.config['OUSI_POSTS_PER_PAGE'], error_out=False)
 
-    return render_template('default/category.html', articles=articles, category=cty)
+    return render_template('category.html', articles=articles, category=cty)
 
 
 @main.route('/archives/<time_tag>', methods=['GET', 'POST'])
@@ -73,7 +69,7 @@ def archives(time_tag):
         order_by(Article.timestamp.desc()). \
         paginate(page, per_page=current_app.config['OUSI_POSTS_PER_PAGE'], error_out=False)
 
-    return render_template('default/archives.html', articles=articles, time_tag=time_tag)
+    return render_template('archives.html', articles=articles, time_tag=time_tag)
 
 
 @main.route('/search/', methods=['GET', 'POST'])
@@ -89,4 +85,4 @@ def search_results(query):
     page = request.args.get('page', 1, type=int)
     articles = Article.query.filter(Article.body.like('%%%s%%' % query)).order_by(Article.timestamp.desc()). \
         paginate(page, per_page=current_app.config['OUSI_POSTS_PER_PAGE'], error_out=False)
-    return render_template('default/search_result.html', articles=articles, query=query)
+    return render_template('search_result.html', articles=articles, query=query)

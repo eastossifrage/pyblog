@@ -1,0 +1,19 @@
+<div class="container" style="margin-top: 40px">
+    <div class="row">
+        <div class="col-lg-6 col-md-8 mx-auto">
+            <div class="form-group">
+                <form method="post" role="form" action="{{ url_for('main.search') }}">
+                    {{ g.search_form.hidden_tag() }}
+                    <div class="input-group">
+                        {{ g.search_form.search(class="form-control", placeholder="全站搜索", required="") }}
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="submit">
+                                <i class="fa fa-search fa-2x"></i>
+                            </button>
+                        </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

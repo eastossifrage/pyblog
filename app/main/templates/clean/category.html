@@ -1,0 +1,68 @@
+{% extends 'common/base.html' %}
+{% import "macros/_patination.html" as page_macros %}
+{% block desc %}{{ category.name }}{% endblock %}
+{% block title %}
+    {{ super() }} —— {{ category.name }}
+{% endblock %}
+{% block content %}
+    <!-- Page Header -->
+    <header class="masthead"
+    style="background-image: url('{{ url_for('main.static', filename='images/home-bg.jpg') }}')">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 col-md-11 mx-auto">
+                    <div class="site-heading">
+                        <h1>藕丝空间</h1>
+                        <span class="subheading">
+                            <i class="fa fa-book"></i>
+                            {{ category.name }}
+                        </span>
+                        {% include 'common/search.html' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 col-md-11 mx-auto">
+            {% for article in articles.items %}
+                <div class="post-preview">
+                    <a href="{{ url_for('main.article', pid=article.id) }}">
+                        <h3 class="post-title">
+                            {{ article.title|title }}
+                        </h3>
+                    </a>
+                        <p class="post-meta">
+                            <i class="fa fa-calendar"></i>
+                            {{ moment(article.timestamp).format('LL') }}
+                            <i class="fa fa-user"></i>
+                            {{ article.author.username }}
+                        </p>
+                    <a href="{{ url_for('main.article', pid=article.id) }}">
+                        <p class="post-subtitle">
+                            {{ article.body_html|striptags|truncate(length=200,
+                            killwords=False, end="......") }}
+                        </p>
+                    </a>
+                    <p class="post-meta">
+                        <i class="fa fa-book"></i>
+                        <a href="{{ url_for('main.category', c=article.category_name) }}">
+                            {{ article.category_name }}
+                        </a>
+                        <i class="fa fa-tags"></i>
+                        {% for tagged in article.taggeds %}
+                            <a href="{{ url_for('main.tag', t=tagged.name) }}"> {{ tagged.name }} </a>
+                        {% endfor %}
+                    </p>
+                </div>
+                <hr>
+            {% endfor %}
+            {{ page_macros.pagination_widget(articles, '.category', c=category.name) }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

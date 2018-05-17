@@ -1,0 +1,107 @@
+{% extends 'admin/common/base.html' %}
+{% block css %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{url_for('.static',filename='editor_md/editormd.min.css')}}">
+{% endblock %}
+{% block js %}
+    {{ super() }}
+    <script src="{{url_for('.static',filename='editor_md/editormd.min.js')}}"></script>
+    <script>
+        var myEditor;
+        $(function(){
+            myEditor = editormd("edit-editor",{
+                width: '100%',
+                height: '600px',
+                syncScrolling : "single",
+                path:"{{url_for('.static',filename='editor_md/lib/')}}",
+                emoji: true,//emoji表情，默认关闭
+                taskList: true,
+                tocm: true, // Using [TOCM]
+                tex: true,// 开启科学公式TeX语言支持，默认关闭
+                //flowChart: true,//开启流程图支持，默认关闭
+                //sequenceDiagram: true,//开启时序/序列图支持，默认关闭,
+                //启动本地图片上传功能
+                imageUpload:true,
+                imageFormats   : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+                imageUploadURL : "{{url_for('.upload')}}",
+                toolbarIcons : function() {
+            // Or return editormd.toolbarModes[name]; // full, simple, mini
+            // Using "||" set icons align right.
+            return ["undo", "redo", "|", "bold", "del", "italic", "quote", "|", "h1", "h2", "h3", "h4",
+                "h5", "h6", "|", "list-ul", "list-ol", "hr", "|", "link", "reference-link", "image",
+                "code", "code-block", "table", "datetime", "html-entities", "goto-line", "search", "||",
+                "fullscreen", "watch", "preview", "info", "|", "publish"]
+        },
+                // 用于增加自定义工具栏的功能，可以直接插入HTML标签，不使用默认的元素创建图标
+                toolbarCustomIcons : {
+                    publish: '<button id="publish" type="button" class="btn btn-primary btn-xs" ' +
+                    'data-toggle="modal" data-target="#myModal">发表文章</button>'
+                }
+            });
+
+            $('#hidden-body').val($('#edit_article-body').val());
+
+            $('#edit-form').submit(function (e) {
+                $('#edit_article-body').val($('#hidden-body').val());
+            });
+        })
+    </script>
+{% endblock %}
+{% block content %}
+<div class="write-article">
+    <div id="edit-editor">
+        <textarea class="hidden" id="hidden-body"></textarea>
+    </div>
+</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form method="post" role="form" id="edit-form">
+                {{ editArticleForm.hidden_tag() }}
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">发表文章</h4>
+                </div>
+                <div class="col-lg-12 modal-body write-article">
+                    <div class="col-lg-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-file"></i></span>
+                            {{ editArticleForm.title(class="form-control", placeholder="文章标题",
+                            required="", autofocus="")}}
+                        </div>
+                    </div>
+                    <div class="col-lg-2" style="padding-top: 10px; padding-bottom: 10px">
+                        <a href="{{ url_for('admin.finder', path='basedir') }}" target="_blank"
+                           type="button" class="btn btn-block btn-primary">
+                            图库
+                        </a>
+                    </div>
+                    <div class="col-lg-12">
+                        {{ editArticleForm.body(class="hidden")}}
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-book"></i></span>
+                            {{ editArticleForm.category_name(class="form-control", required="",
+                            placeholder="文章类别")}}
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-tags"></i></span>
+                            {{ editArticleForm.tags_name(class="form-control", required="",
+                            placeholder="文章标签，用逗号分隔")}}
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input class="btn btn-default" type="reset" value="重 置">
+                    {{ editArticleForm.submit(class="btn btn-primary")}}
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

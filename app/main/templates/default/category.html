@@ -1,5 +1,5 @@
-{% extends 'default/common/base.html' %}
-{% import "default/macros/_patination.html" as page_macros %}
+{% extends 'common/base.html' %}
+{% import "macros/_patination.html" as page_macros %}
 {% block desc %}{{ category.name }}{% endblock %}
 {% block title %}
     {{ super() }} —— {{ category.name }}
@@ -12,11 +12,13 @@
             <i class="glyphicon glyphicon-calendar"></i> <a>{{ moment(article.timestamp).format('LL') }}</a>
             <i class="glyphicon glyphicon-user"></i> <a>{{ article.author.username }}</a>
         </div>
-        <p class="article">
-            {{ article.body|markdown|striptags|truncate(length=200, killwords=False, end="......") }}
-        </p>
+        <div class="article">
+            <p>{{ article.body_html|striptags|truncate(length=200, killwords=False, end="......") }}</p>
+        </div>
         <div class="gly-book">
-            <i class="glyphicon glyphicon-book"></i><a href="{{ url_for('main.category', c=article.category_name) }}"> {{ article.category_name }}</a>
+            <i class="glyphicon glyphicon-book"></i>
+            <a href="{{ url_for('main.category', c=article.category_name) }}"> {{ article.category_name }}
+            </a>
         </div>
         <div>
             <i class="glyphicon glyphicon-tags"></i>

@@ -1,0 +1,91 @@
+{% extends 'common/base.html' %}
+{% block desc %}
+    {{ article.body_html|striptags|truncate(length=50, killwords=False, end="......") }}
+{% endblock %}
+{% block title %}
+    {{ super() }} —— {{ article.title }}
+{% endblock %}
+{% block css %}
+    {{ super() }}
+    <link href="{{ url_for('main.static', filename='css/monokai.css') }}" rel="stylesheet">
+{% endblock %}
+{% block js %}
+    {{ super() }}
+    <script src="{{ url_for('main.static', filename='js/jquery.simple-scroll-follow.min.js') }}">
+    </script>
+    <script>
+        $(function(){
+            $('#sidebar').simpleScrollFollow({
+                limit_elem: '.article'
+            })
+        })
+    </script>
+{% endblock %}
+{% block content %}
+<!-- Page Header -->
+<header class="masthead"
+style="background-image: url('{{ url_for('main.static', filename='images/post-bg.png') }}')">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 col-md-11 mx-auto">
+                <div class="site-heading">
+                    <h2>{{ article.title }}</h2>
+                    <span class="-meta">
+                        <i class="fa fa-calendar"></i>
+                        {{ moment(article.timestamp).format('LL') }}
+                        <i class="fa fa-user"></i>
+                        {{ article.author.username }}
+                    </span>
+                    {% include 'common/search.html' %}
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- Main Content -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-10 col-md-11 mx-auto article">
+            {{ article.body_html|safe }}
+            <ul class="pagination float-right">
+                {% if article.previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ url_for('main.article',
+                           pid=article.previous.id) }}"
+                           title="{{ article.previous.title }}">
+                        <span>&larr;</span> 上一篇
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="javascript:void(0)"
+                           title="没有文章了">
+                        <span>&larr;</span> 上一篇
+                        </a>
+                    </li>
+                {% endif %}
+                {% if article.next %}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ url_for('main.article', pid=article.next.id) }}"
+                           title="{{ article.next.title }}">下一篇
+                            <span>&rarr;</span>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="javascript:void(0)" title="没有文章了">下一篇
+                            <span>&rarr;</span>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+        <div class="col-lg-2 col-md-1">
+            <div id="sidebar">
+            {{ article.body_toc|safe }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

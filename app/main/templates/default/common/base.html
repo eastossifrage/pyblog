@@ -5,50 +5,53 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-        <meta name="description" content="{% block desc %}谦卑并倔强的活着！{% endblock %}">
+        <meta name="description" content="{% block desc %}编程！我们是认真的！{% endblock %}">
         <meta name="author" content="">
         <link rel="icon" href="{{ url_for('main.static', filename='images/favicon.ico')}}">
 
         <title>{% block title %}藕丝空间{% endblock %}</title>
         {% block css %}
-            <!-- 新 Bootstrap 核心 CSS 文件 -->
-            <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
-
-            <!-- 可选的Bootstrap主题文件（一般不用引入） -->
-            <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
-
+            <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+            <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+            <!-- KaTeX js主题文件 -->
+            <link rel="stylesheet" type="text/css"
+                  href="https://cdn.bootcss.com/KaTeX/0.7.1/katex.min.css" />
             <!-- 个性化主题文件 -->
-            <link href="{{ url_for('main.static', filename='css/code_default.css')}}" rel="stylesheet">
+            <link href="{{ url_for('main.static', filename='css/monokai.css')}}" rel="stylesheet">
             <link href="{{ url_for('main.static', filename='css/offcanvas.css')}}" rel="stylesheet">
+            <!-- font-awesome 主题文件 -->
+            <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css"
+                  rel="stylesheet">
         {% endblock %}
 
         {% block js %}
-            <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
-            <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
-
-            <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-            <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+            <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+            <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+            <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+            <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+            <!-- 加载KaTeX js 文件 -->
+            <script type="text/javascript" src="https://cdn.bootcss.com/KaTeX/0.7.1/katex.min.js">
+            </script>
 
             <!-- 个性化 js 文件 -->
             <script src="{{ url_for('main.static', filename='js/offcanvas.js')}}"></script>
             {{ moment.include_moment(local_js=url_for('admin.static', filename='js/moment-with-locales.js')) }}
             {{ moment.lang('zh-cn') }}
+            <script type="text/javascript">
+                $("tex.tex-inline").each(
+                    function(i, domElem) {
+                        katex.render(domElem.innerText, domElem, {displayMode: false});
+                    });
+                $("tex.tex-block").each(
+                    function(i, domElem) {
+                        katex.render(domElem.innerText, domElem, {displayMode: true});
+                    });
+            </script>
         {% endblock %}
-        {% if g.baidufenxi.status %}
-        <script>
-            var _hmt = _hmt || [];
-            (function() {
-              var hm = document.createElement("script");
-              hm.src = "//hm.baidu.com/hm.js?{{ g.baidufenxi.token }}";
-              var s = document.getElementsByTagName("script")[0];
-              s.parentNode.insertBefore(hm, s);
-            })();
-        </script>
-        {% endif %}
     </head>
 
     <body>
-        {% include 'default/common/header.html' %}
+        {% include 'common/header.html' %}
         <div class="container">
             <div class="row row-offcanvas row-offcanvas-right">
                 <div class="col-xs-12 col-sm-9">
@@ -60,9 +63,9 @@
                         {% endblock %}
                     </div><!--/row-->
                 </div><!--/.col-xs-12.col-sm-9-->
-                {% include 'default/common/sidebar.html' %}
+                {% include 'common/sidebar.html' %}
             </div><!--/row-->
-            {% include 'default/common/footer.html' %}
+            {% include 'common/footer.html' %}
         </div><!--/.container-->
     </body>
 </html>

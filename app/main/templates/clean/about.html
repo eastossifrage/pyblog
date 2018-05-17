@@ -1,0 +1,51 @@
+{% extends 'common/base.html' %}
+{% import "macros/_patination.html" as page_macros %}
+{% block content %}
+    <!-- Page Header -->
+    <header class="masthead"
+    style="background-image: url('{{ url_for('main.static', filename='images/about-bg.jpg') }}')">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 col-md-11 mx-auto">
+                    <div class="site-heading">
+                        <h1>藕丝空间</h1>
+                        <span class="subheading">编程，我们是认真的！</span>
+                        <span class="subheading">
+                            <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=67a753a295c5b0e08928088768498e82c99ab1ed9be2ac5e4a99ac58b98ea3ce">
+                                <img border="0" src="//pub.idqqimg.com/wpa/images/group.png"
+                                     alt="藕丝空间--认真的编程" title="藕丝空间--认真的编程"></a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 col-md-11 mx-auto">
+                <ul class="list-inline text-center">
+                    <li class="col-lg-7 list-inline-item text-left">
+                        <script src='//w.segmentfault.com/card/1030000010790608.js?w=0&3rd=1&bg=0&bd=DDDDDD&cl=333333&btn=009a61&noBtn=0'></script>
+                    </li>
+                    <li class="col-lg-5 list-inline-item">
+                        <a target="_blank"
+                           href="https://github.com/eastossifrage/pyblog">
+                            <img src="{{ url_for('.static', filename='images/pyblog.png') }}"
+                                 class="img-thumbnail" alt="Cinque Terre">
+                        </a>
+                    </li>
+                    <li class="col-lg-5 list-inline-item">
+                        <a target="_blank"
+                           href="https://github.com/eastossifrage/sql_to_sqlalchemy">
+                            <img src="{{ url_for('.static', filename='images/sql_to_sqlalchemy.png') }}"
+                                 class="img-thumbnail" alt="Cinque Terre">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

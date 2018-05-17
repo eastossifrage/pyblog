@@ -2,17 +2,13 @@
 __author__ = '东方鹗'
 
 from flask import Flask
-# from flask.ext.mail import Mail
 from flask_moment import Moment
 from flask_sqlalchemy import SQLAlchemy
-from flask_misaka import Misaka
 from flask_login import LoginManager
 from config import config
 
-# mail = Mail()
 moment = Moment()
 db = SQLAlchemy()
-md = Misaka()
 login_manager = LoginManager()
 login_manager.session_protection = 'strong'
 login_manager.login_view = 'admin.login'
@@ -27,12 +23,11 @@ def create_app(config_name):
     # mail.init_app(app=app)
     moment.init_app(app=app)
     db.init_app(app=app)
-    md.init_app(app=app)
     login_manager.init_app(app=app)
 
     # 注册蓝本 main
     from .main import main as main_blueprint
-    app.register_blueprint(main_blueprint, url_prefix='/dynamic')
+    app.register_blueprint(main_blueprint)
 
     # 注册蓝本 admin
     from .admin import admin as admin_blueprint
