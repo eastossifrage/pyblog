@@ -211,7 +211,7 @@ sudo ln -s /var/www/pyblog/pyblog_uwsgi.ini /etc/uwsgi/vassals
 ~~```bash
 (flask)$ python manage.py shell
 >>> Plugin.insert_plugins()
-```~~
+```
 
 ### 重新启动服务
 
