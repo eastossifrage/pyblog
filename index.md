@@ -206,11 +206,12 @@ sudo ln -s /var/www/pyblog/pyblog_uwsgi.ini /etc/uwsgi/vassals
 (flask)$ python manage.py db upgrade
 ```
 
- ~~#### 创建插件数据库数据~~
-~~```bash~~
-~~(flask)$ python manage.py shell~~
-~~>>> Plugin.insert_plugins()~~
-~~```~~
+ ~~#### 创建插件数据库数据~~  **在 pyblog 2.0 版本中不需要改操作**
+ 
+~~```bash
+(flask)$ python manage.py shell
+>>> Plugin.insert_plugins()
+```~~
 
 ### 重新启动服务
 
